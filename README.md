@@ -34,7 +34,7 @@ Special thanks to [Huy Trong Nguyen](https://github.com/nguyenhuytrong), [Quoc D
 | **Trigger mechanism** | Punctures the air cylinder |
 | **Nylon airbag** | Inflatable protection |
 | **Buzzer** | Alarm sound |
-| **SIM module (SIM800LSIM800L)** | Sends SMS/calls to family |
+| **SIM module (SIM800L)** | Sends SMS/calls to family |
 
 ---
 
