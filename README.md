@@ -3,6 +3,7 @@
 ## 📌 Overview
 The **Fall Prevention Strap** is a wearable prototype designed to protect elderly individuals from injuries caused by falls.  
 It combines **fall detection**, **automatic airbag deployment**, and **emergency alerting** into one compact system.
+
 <img width="309" height="470" alt="image" src="https://github.com/user-attachments/assets/784600e2-2eb8-4980-80cf-4e0ff46a3531" />
 
 ---
