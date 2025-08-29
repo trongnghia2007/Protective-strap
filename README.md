@@ -6,15 +6,21 @@ It combines **fall detection**, **automatic airbag deployment**, and **emergency
 
 ---
 
+## 👥 Contributors
+
+Special thanks to [Huy Trong Nguyen](https://github.com/nguyenhuytrong), [Quoc Dat Bui](https://github.com/doquolo), [Quang Giac Do](https://github.com/DQGiac), and Le Huy Nguyen for contributing dedicatedly to this project.
+
+---
+
 ## ⚙️ How It Works
 1. The strap is worn on the back, containing a **nylon inflatable airbag**.  
 2. A **MPU6050 sensor** continuously monitors orientation and motion.  
 3. When a fall is detected:
-   - The microcontroller triggers a **mechanical puncture mechanism** to release air from a **compressed air cylinder (bình khí nén)**.  
+   - The microcontroller triggers a **mechanical puncture mechanism** to release air from a **compressed air cylinder**.  
    - The air inflates the back airbag to cushion the fall.  
 4. Simultaneously:
    - A **buzzer alarm** activates to alert nearby people.  
-   - A **SIM module** (e.g., SIM800L) sends an emergency SMS/call to family members.
+   - A **SIM module** sends an emergency SMS/call to family members.
 
 ---
 
@@ -48,10 +54,13 @@ It combines **fall detection**, **automatic airbag deployment**, and **emergency
 
 ---
 
-## 📂 Project Structure (example)
+## 📞 Contact
+
+For further questions or collaboration:
+- 📧 [Gmail](huynghia05012007@gmail.com)
+- 👨‍💻 [LinkedIn](https://www.linkedin.com/in/huy-nghia-nguyen-501010333/)
+- 💼 [GitHub](https://github.com/trongnghia2007)
 
 ---
 
-## 🤝 Contribution
-This is an experimental prototype.  
-Contributions, feedback, and improvements are welcome to make it safer and more practical.
+> ✨ Feel free to star ⭐ this repository if you find it helpful!
