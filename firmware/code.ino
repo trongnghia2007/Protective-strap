@@ -1,24 +1,21 @@
 #include <Wire.h>
 #include <MPU6050.h>
-#include <SoftwareSerial.h>
 
 MPU6050 mpu;
 
-// Pin definitions
-const int BUZZER_PIN = 5;       // Buzzer
-const int TRIGGER_PIN = 6;      // Relay/MOSFET for gas release
-const int SIM800_TX = 7;        // SIM800L TX
-const int SIM800_RX = 8;        // SIM800L RX
+// Pin definitions (chỉnh lại cho ESP32)
+const int BUZZER_PIN = 25;
+const int TRIGGER_PIN = 26;
+const int SIM800_TX = 17;   // ESP32 TX -> SIM800 RX
+const int SIM800_RX = 16;   // ESP32 RX -> SIM800 TX
 
-SoftwareSerial sim800(SIM800_RX, SIM800_TX);
-
+HardwareSerial sim800(1);
 bool fallDetected = false;
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
   Wire.begin();
 
-  // Initialize MPU6050
   Serial.println("Initializing MPU6050...");
   mpu.initialize();
   if (!mpu.testConnection()) {
@@ -27,14 +24,13 @@ void setup() {
   }
   Serial.println("MPU6050 connected.");
 
-  // Pin setup
   pinMode(BUZZER_PIN, OUTPUT);
   pinMode(TRIGGER_PIN, OUTPUT);
   digitalWrite(BUZZER_PIN, LOW);
   digitalWrite(TRIGGER_PIN, LOW);
 
-  // Initialize SIM800L
-  sim800.begin(9600);
+  // SIM800 init
+  sim800.begin(9600, SERIAL_8N1, SIM800_RX, SIM800_TX);
   delay(1000);
   sendCommand("AT");
   sendCommand("AT+CMGF=1"); // SMS mode
@@ -45,16 +41,14 @@ void loop() {
   int16_t gx, gy, gz;
   mpu.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
 
-  // Calculate inclination angle (rough estimation)
   float angleX = atan2(ay, az) * 180 / PI;
   float angleY = atan2(ax, az) * 180 / PI;
+  float acc = sqrt(ax*ax + ay*ay + az*az) / 16384.0; // g
 
-  // Debug
-  Serial.print("AngleX: "); Serial.print(angleX);
-  Serial.print(" | AngleY: "); Serial.println(angleY);
+  Serial.printf("AngleX: %.2f | AngleY: %.2f | Acc: %.2f g\n", angleX, angleY, acc);
 
-  // Simple fall detection (threshold-based)
-  if (abs(angleX) > 70 || abs(angleY) > 70) { 
+  // điều kiện phát hiện ngã
+  if ((acc < 0.4 || acc > 2.5) && (abs(angleX) > 70 || abs(angleY) > 70)) {
     if (!fallDetected) {
       fallDetected = true;
       handleFall();
@@ -69,18 +63,14 @@ void loop() {
 void handleFall() {
   Serial.println("FALL DETECTED!");
 
-  // 1. Trigger buzzer
   digitalWrite(BUZZER_PIN, HIGH);
 
-  // 2. Trigger gas release (relay/mosfet)
   digitalWrite(TRIGGER_PIN, HIGH);
-  // delay(2000); // Keep open for 2s
+  delay(2000);
   digitalWrite(TRIGGER_PIN, LOW);
 
-  // 3. Send SMS alert
   sendSMS("+1234567890", "Emergency! Fall detected. Please check immediately.");
 
-  // 4. Keep buzzer on for alert
   delay(5000);
   digitalWrite(BUZZER_PIN, LOW);
 }
