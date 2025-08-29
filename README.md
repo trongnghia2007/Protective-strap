@@ -22,13 +22,13 @@ It combines **fall detection**, **automatic airbag deployment**, and **emergency
 
 | Component | Description |
 |-----------|-------------|
+| **ESP32** | Main microcontroller |
 | **MPU6050** | Motion & orientation sensor |
-| **ESP32 / Arduino** | Main microcontroller |
 | **Compressed air cylinder** | Provides inflation gas |
 | **Trigger mechanism** | Punctures the air cylinder |
 | **Nylon airbag** | Inflatable protection |
 | **Buzzer** | Alarm sound |
-| **SIM module (SIM800L/SIM900)** | Sends SMS/calls to family |
+| **SIM module (SIM900)** | Sends SMS/calls to family |
 
 ---
 
@@ -49,3 +49,9 @@ It combines **fall detection**, **automatic airbag deployment**, and **emergency
 ---
 
 ## 📂 Project Structure (example)
+
+---
+
+## 🤝 Contribution
+This is an experimental prototype.  
+Contributions, feedback, and improvements are welcome to make it safer and more practical.
